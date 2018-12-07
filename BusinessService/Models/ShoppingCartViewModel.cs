@@ -30,5 +30,7 @@ namespace BusinessService.Models
                     return "hidden";
             }
         }
+        public string StripeKey { get; set; }
+
     }
 }

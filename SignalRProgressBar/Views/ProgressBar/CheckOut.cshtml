@@ -1,8 +1,5 @@
 ﻿@using BusinessService.Models;
-@using Microsoft.Extensions.Options;
-@using SignalRProgressBar.Services;
 @model ShoppingCartViewModel
-@inject IOptions<StripeOptions> optionsAccessor
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @functions{
     public string GetAntiXsrfRequestToken()
@@ -15,7 +12,7 @@
 }
 
 <input type="hidden" id="StripePublishableKey"
-       name="StripePublishableKey" value="@optionsAccessor.Value.StripePublishableKey" />
+       name="StripePublishableKey" value="@Model.StripeKey" />
 <input type="hidden" id="RequestVerificationToken"
        name="RequestVerificationToken" value="@GetAntiXsrfRequestToken()">
 

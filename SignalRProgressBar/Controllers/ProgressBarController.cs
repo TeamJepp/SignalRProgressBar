@@ -18,12 +18,15 @@ namespace SignalRProgressBar.Controllers
     [Authorize]
     public class ProgressBarController : Controller
     {
+        private readonly StripeOptions _stripeOptions;
         private readonly ISubscriptionService _subscriptionService;
         private readonly IHubContext<ProgressHub> _hubContext;
 
-        public ProgressBarController(ISubscriptionService subscriptionService,                                
+        public ProgressBarController(IOptions<StripeOptions> stripeOptions,
+                                    ISubscriptionService subscriptionService,                                
                                     IHubContext<ProgressHub> hubContext)
         {
+            _stripeOptions = stripeOptions.Value;
             _subscriptionService = subscriptionService;
             _hubContext = hubContext;
         }
@@ -36,7 +39,8 @@ namespace SignalRProgressBar.Controllers
 
         [HttpGet]
         public IActionResult CheckOut()
-        {
+        {           
+
             var shoppingCartViewModel = BuildShoppingCartViewModel();
 
             return View(shoppingCartViewModel);
@@ -88,6 +92,7 @@ namespace SignalRProgressBar.Controllers
                 //TotalRegistrationFees = TotalRegistrationFees,
                 //TotalReoccuringFees = TotalReoccuringFees,
                 UserName = User.Identity.Name,
+                StripeKey = _stripeOptions.StripePublishableKey
                 //FirstName = firstName,
                 //LastName = lastName,
             };
