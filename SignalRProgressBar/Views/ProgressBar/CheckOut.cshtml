@@ -1,0 +1,125 @@
+﻿@using BusinessService.Models;
+@using Microsoft.Extensions.Options;
+@using SignalRProgressBar.Services;
+@model ShoppingCartViewModel
+@inject IOptions<StripeOptions> optionsAccessor
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions{
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+@{
+    ViewData["Title"] = "Check Out";
+}
+
+<input type="hidden" id="StripePublishableKey"
+       name="StripePublishableKey" value="@optionsAccessor.Value.StripePublishableKey" />
+<input type="hidden" id="RequestVerificationToken"
+       name="RequestVerificationToken" value="@GetAntiXsrfRequestToken()">
+
+<!-- Checkout Form -->
+<div class="container">
+    <div>
+        <!-- Payment & Review -->
+        <div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row" id="stripe_div">
+                        <div class="col">
+                            <h4 class="h6 text-uppercase mb-3">Check Out</h4>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="g-color-black">Enter a Test Credit Card: 4242424242424242</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="stripe_div">
+                        <div class="col">
+                            <div class="col" id="card-element">
+                                <!-- A Stripe Element will be inserted here. -->
+                            </div>
+                            <!-- Used to display form errors. -->
+                            <!-- Danger Alert -->
+                            <div id="card-errors" role="alert">
+                            </div>
+                            <!-- End Danger Alert -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <!-- End Danger Alert -->
+                            <div class="text-center mb-3">
+                                <button id="checkOutButton" class="btn btn-block"
+                                        disabled="disabled"
+                                        data-loading-text="<i class='fa fa-spinner fa-spin'></i>&nbsp;Processing..."
+                                        data-complete-text="<i class='fa fa-check'></i>&nbsp;Completed">
+                                    Purchase
+                                </button>
+                            </div>
+                            <!-- End Danger Alert -->
+                            <div class="row vertical-align mb-3">
+                                <div id="notification" class="col-lg-12 col-md-12 col-sm-12" style="display:none;">
+                                    <h6 class="text-uppercase text-center"><span id="headerMessage"></span></h6>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="text-center"><span id="percentage"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="msgerror-row" class="alert alert-danger" role="alert" style="display:none">
+                                <strong>Something went wrong. </strong> Please contact customer support.
+                                <div>
+                                    <span id="msgerror" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <!-- Order Summary -->
+                    <!-- Summary -->
+                    <div>
+                        <h4 class="h6 text-uppercase mb-3">Summary</h4>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="g-color-black"></span>
+                            <span class="g-color-black"></span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Total Registration Fees</span>
+                            <span>$ @Model.TotalRegistrationFees</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Total Recurring Fees</span>
+                            <span>$ @Model.TotalReoccuringFees</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-4">
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="h6 d-flex justify-content-between">
+                            <span>Total Purchase Today</span>
+                            <span>$ @Model.ShoppingCartTotal</span>
+                        </div>
+                    </div>
+                    <!-- End Order Summary -->
+                </div>
+            </div>
+        </div>
+        <!-- End Payment & Review -->
+    </div>
+</div>
+<!-- End Checkout Form -->
+
+@section scripts {
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/checkout.js"></script>
+}
