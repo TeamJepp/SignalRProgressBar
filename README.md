@@ -1,6 +1,8 @@
 # SignalR Progress Bar
 SignalR Progress Bar Asp.Net Core 2.2 (Asp.net Identity &amp; Stripe)
 
+[![Build Status](https://dev.azure.com/teamjepp/SignalRProgressBar/_apis/build/status/TeamJepp.SignalRProgressBar?branchName=master&jobName=Job1)](https://dev.azure.com/teamjepp/SignalRProgressBar/_build/latest?definitionId=1?branchName=master)
+
 Hello World!
 
 My name is Randy and this is my first Github open source contribution. I was a technical architect for Accenture and later Avanade in my first life (many years ago). This past year I have decided to get back into tech. It has taken me a bit to catch back up on all the great tech out there. After 12 months, I feel like I am still just scratching the surface! Enough about me... You probably want to know about the Signalr Progress Bar.
