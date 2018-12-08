@@ -37,6 +37,6 @@ namespace SignalRProgressBar
                            }
                 ).UseStartup<Startup>();
 
-        private static string GetKeyVaultEndpoint() => "https://signalrprogressbar-kv.vault.azure.net";
+        private static string GetKeyVaultEndpoint() => "https://signalrprogressbar-0-kv.vault.azure.net";
     }
 }
