@@ -10,6 +10,6 @@ variables:
 steps:
 - script: |
     dotnet build --configuration $(buildConfiguration)
-    dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+    dotnet publish --output $(Build.ArtifactStagingDirectory)
 
 - task: PublishBuildArtifacts@1
