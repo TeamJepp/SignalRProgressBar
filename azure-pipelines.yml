@@ -10,7 +10,7 @@ variables:
 steps:
 - script: |
     dotnet build --configuration $(buildConfiguration)
-    dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+    dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY/WebApp.zip
 
 # Publish Build Artifacts
 # Publish build artifacts to Azure Pipelines/TFS or a file share
